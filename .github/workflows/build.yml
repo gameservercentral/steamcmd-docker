@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: version
     outputs:
-        steamcmd_version: ${{ steps.appversion.outputs.steamcmd_version}}
+      steamcmd_version: ${{ steps.get_version.outputs.steamcmd_version }}
     steps:
     - uses: actions/checkout@v3
             
@@ -43,11 +43,11 @@ jobs:
       with:
         images: ghcr.io/gameservercentral/steamcmd-docker
     - name: extract steamcmd version
-      id: appversion
+      id: get_version
       run: |
           sudo add-apt-repository multiverse; sudo dpkg --add-architecture i386; sudo apt update
           echo "steamcmd_version=$(apt show steamcmd | grep Version | sed 's/^Version: //')"
-          echo "steamcmd_version=$(apt show steamcmd | grep Version | sed 's/^Version: //')" >> $GITHUB_OUTPUT
+          echo "::set-output name=steamcmd_version::$(apt show steamcmd | grep Version | sed 's/^Version: //')"
 
 
     - name: Build and push Docker image
