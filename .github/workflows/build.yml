@@ -42,12 +42,16 @@ jobs:
       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
       with:
         images: ghcr.io/gameservercentral/steamcmd-docker
-    - name: extract steamcmd version
+
+    - name: Extract SteamCMD version
       id: get_version
       run: |
-          sudo add-apt-repository multiverse; sudo dpkg --add-architecture i386; sudo apt update
-          echo "steamcmd_version=$(apt show steamcmd | grep Version | sed 's/^Version: //')"
-          echo "::set-output name=steamcmd_version::$(apt show steamcmd | grep Version | sed 's/^Version: //')"
+          sudo add-apt-repository multiverse
+          sudo dpkg --add-architecture i386
+          sudo apt update
+          version=$(apt show steamcmd | grep Version | sed 's/^Version: //')
+          echo "steamcmd_version=$version"
+          echo "::set-output name=steamcmd_version::$version"
 
 
     - name: Build and push Docker image
@@ -57,7 +61,7 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
           ghcr.io/gameservercentral/steamcmd-docker:latest
-          ghcr.io/gameservercentral/steamcmd-docker:${{needs.build.outputs.steamcmd_version}}
+          ghcr.io/gameservercentral/steamcmd-docker:${{ steps.get_version.outputs.steamcmd_version }}
         labels: ${{ steps.meta.outputs.labels }}
 
   release:
