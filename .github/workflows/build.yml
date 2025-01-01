@@ -7,6 +7,9 @@ on:
       - "feature/*" 
   pull_request:
     branches: [ "main" ]
+  schedule:
+      - cron: '0 0 * * *' # This cron expression schedules the workflow to run every day at midnight UTC
+  
 
 jobs:
     
@@ -62,6 +65,7 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
           ghcr.io/gameservercentral/steamcmd-docker:latest
+          ghcr.io/gameservercentral/steamcmd-docker:${{needs.version.outputs.tag}}
           ghcr.io/gameservercentral/steamcmd-docker:${{ steps.get_version.outputs.steamcmd_version }}
         labels: ${{ steps.meta.outputs.labels }}
 
