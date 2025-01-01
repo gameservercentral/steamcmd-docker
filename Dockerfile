@@ -1,6 +1,7 @@
 FROM ubuntu
 
-
+LABEL org.opencontainers.image.description="Docker image containing SteamCMD based on ubuntu"
+LABEL maintainer="info@gameservercentral.eu"
 ENV DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
