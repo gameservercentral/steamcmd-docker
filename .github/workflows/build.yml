@@ -49,9 +49,10 @@ jobs:
           sudo add-apt-repository multiverse
           sudo dpkg --add-architecture i386
           sudo apt update
-          version=$(apt show steamcmd | grep Version | sed 's/^Version: //')
-          echo "steamcmd_version=$version"
-          echo "::set-output name=steamcmd_version::$version"
+          version=$(apt show steamcmd | grep Version | sed 's/^Version: //' )
+          clean_version=$(echo $version | sed 's/[^a-z0-9._-]//g')
+          echo "steamcmd_version is available in $version. Cleaned version for docker is $clean_version"
+          echo "::set-output name=steamcmd_version::$clean_version"
 
 
     - name: Build and push Docker image
