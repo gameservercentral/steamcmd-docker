@@ -46,8 +46,8 @@ jobs:
       id: appversion
       run: |
           sudo add-apt-repository multiverse; sudo dpkg --add-architecture i386; sudo apt update
-          echo "steamcmd_version=$(apt show steamcmd | grep Version)"
-          echo "steamcmd_version=$(apt show steamcmd | grep Version)" >> $GITHUB_OUTPUT
+          echo "steamcmd_version=$(apt show steamcmd | grep Version | sed 's/^Version: //')"
+          echo "steamcmd_version=$(apt show steamcmd | grep Version | sed 's/^Version: //')" >> $GITHUB_OUTPUT
 
 
     - name: Build and push Docker image
