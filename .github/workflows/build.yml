@@ -44,7 +44,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
       with:
-        images: ghcr.io/gameservercentral/steamcmd-docker
+        images: ghcr.io/gameservercentral/steamcmd
 
     - name: Extract SteamCMD version
       id: get_version
@@ -64,9 +64,9 @@ jobs:
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ghcr.io/gameservercentral/steamcmd-docker:latest
-          ghcr.io/gameservercentral/steamcmd-docker:${{needs.version.outputs.tag}}
-          ghcr.io/gameservercentral/steamcmd-docker:${{ steps.get_version.outputs.steamcmd_version }}
+          ghcr.io/gameservercentral/steamcmd:latest
+          ghcr.io/gameservercentral/steamcmd:${{needs.version.outputs.tag}}
+          ghcr.io/gameservercentral/steamcmd:${{ steps.get_version.outputs.steamcmd_version }}
         labels: ${{ steps.meta.outputs.labels }}
 
   release:
