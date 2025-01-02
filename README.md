@@ -23,7 +23,7 @@ This repository contains a Docker image for SteamCMD, based on Ubuntu. SteamCMD 
 To use the Docker image, run the following command:
 
 ```sh
-docker run -it ghcr.io/gameservercentral/steamcmd-docker:latest
+docker run -it ghcr.io/gameservercentral/steamcmd:latest
 ```
 
 This will start an interactive shell within the container where you can run SteamCMD commands.
