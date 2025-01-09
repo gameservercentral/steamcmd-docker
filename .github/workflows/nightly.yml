@@ -52,7 +52,7 @@ jobs:
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ghcr.io/gameservercentral/steamcmd-docker:latest
-          ghcr.io/gameservercentral/steamcmd-docker:nightly
-          ghcr.io/gameservercentral/steamcmd-docker:${{ steps.get_version.outputs.steamcmd_version }}
+          ghcr.io/gameservercentral/steamcmd:latest
+          ghcr.io/gameservercentral/steamcmd:nightly
+          ghcr.io/gameservercentral/steamcmd:${{ steps.get_version.outputs.steamcmd_version }}
         labels: ${{ steps.meta.outputs.labels }}
