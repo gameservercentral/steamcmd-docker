@@ -22,19 +22,22 @@ RUN add-apt-repository multiverse
 RUN dpkg --add-architecture i386;
 RUN apt update -y
 RUN apt install steamcmd -y
-RUN useradd --create-home -s /bin/bash user && \
+
+RUN mkdir /data
+RUN useradd --create-home --home-dir /data -s /bin/bash user && \
     adduser user sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
     
-
+RUN chown -R user:user /data
 # Create symlink for executable
 RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
-RUN mkdir /data
-RUN sudo usermod -d /data -m user
-run mkdir -p /data/.steam/sdk64
-run mkdir -p /data/.steam/sdk32
-RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk64/
-RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk32/
+
+USER user
+ENV HOME=/data
+RUN mkdir -p /data/.steam/sdk64
+RUN mkdir -p /data/.steam/sdk32
+#RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk64/
+#RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk32/
 RUN steamcmd login anonymous +quit
 
 USER user
