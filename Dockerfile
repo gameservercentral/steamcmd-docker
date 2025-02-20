@@ -29,10 +29,12 @@ RUN useradd --create-home -s /bin/bash user && \
 
 # Create symlink for executable
 RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
-run mkdir -p /home/user/.steam/sdk64
-run mkdir -p /home/user/.steam/sdk32
-RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /home/user/.steam/sdk64/
-RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /home/user/.steam/sdk32/
+RUN mkdir /data
+RUN sudo usermod -d /data -m user
+run mkdir -p /data/.steam/sdk64
+run mkdir -p /data/.steam/sdk32
+RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk64/
+RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk32/
 RUN steamcmd login anonymous +quit
 
 USER user
