@@ -28,6 +28,13 @@ docker run -it ghcr.io/gameservercentral/steamcmd:latest
 
 This will start an interactive shell within the container where you can run SteamCMD commands.
 
+### Examples
+
+#### Run Barotrauma Dedicated Server
+
+```sh
+docker run -it -p 27015:27015/udp -p 27016:27016/udp ghcr.io/gameservercentral/steamcmd:latest /bin/bash -c "steamcmd +force_install_dir /data/ +login anonymous +app_update 1026340 validate +quit && ./data/DedicatedServer"
+```
 ## Build Manually
 
 To build the Docker image, clone this repository and run the following command:
@@ -38,6 +45,7 @@ cd steamcmd-docker
 docker build -t steamcmd-docker .
 ```
 
+docker run -it -p 27015:27015/udp -p 27016:27016/udp ghcr.io/gameservercentral/steamcmd:latest /bin/bash -c "steamcmd +force_install_dir /data/ +login anonymous +app_update 1026340 validate +quit && ./data/DedicatedServer"
 
 
 ## License
