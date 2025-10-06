@@ -36,9 +36,10 @@ USER user
 ENV HOME=/data
 RUN mkdir -p /data/.steam/sdk64
 RUN mkdir -p /data/.steam/sdk32
-#RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk64/
-#RUN ln -s /root/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk32/
+
 RUN steamcmd login anonymous +quit
+RUN ln -sf /data/.local/share/Steam/steamcmd/linux32/steamclient.so /data/.steam/sdk32/steamclient.so
+RUN ln -sf /data/.local/share/Steam/steamcmd/linux64/steamclient.so /data/.steam/sdk64/steamclient.so
 
 USER user
 ENV USER=user
